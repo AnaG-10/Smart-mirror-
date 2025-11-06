@@ -1,7 +1,5 @@
-from dashboard import SmartMirrorApp
-
-
+import dashboard
 
 if __name__ == "__main__":
-    app = SmartMirrorApp()
+    app = dashboard.SmartMirrorApp()
     app.run()

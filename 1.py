@@ -1,16 +1,14 @@
 import tkinter as tk
 import requests
-import time
 from datetime import datetime
 
-# --- Config ---
 WEATHER_API = "https://api.open-meteo.com/v1/forecast?latitude=22.57&longitude=88.36&current_weather=true"
-NEWS_API = "https://newsdata.io/api/1/news?apikey=pub_12345&country=in&language=en&category=top"  # Replace with your key
+NEWS_API = "https://newsdata.io/api/1/news?apikey=pub_12345&country=in&language=en&category=top"  # Replace key
 QUOTE_API = "https://api.quotable.io/random"
 
 REFRESH_TIME = 60000  # Refresh every 60 seconds
 
-# --- Functions ---
+
 def get_weather():
     try:
         response = requests.get(WEATHER_API).json()
@@ -18,6 +16,7 @@ def get_weather():
         return f"Weather: {temp}°C"
     except:
         return "Weather: N/A"
+
 
 def get_news():
     try:
@@ -27,6 +26,7 @@ def get_news():
     except:
         return "News: N/A"
 
+
 def get_quote():
     try:
         response = requests.get(QUOTE_API).json()
@@ -34,23 +34,16 @@ def get_quote():
     except:
         return "Quote: N/A"
 
+
 def update_display():
-    # Time & Date
     now = datetime.now().strftime("%H:%M:%S | %d-%m-%Y")
     time_label.config(text=now)
-
-    # Weather
     weather_label.config(text=get_weather())
-
-    # News
     news_label.config(text=get_news())
-
-    # Quote
     quote_label.config(text=get_quote())
-
     root.after(REFRESH_TIME, update_display)
 
-# --- GUI Setup ---
+
 root = tk.Tk()
 root.title("Smart Mirror Simulation")
 root.configure(bg="black")
@@ -67,7 +60,5 @@ news_label.pack(pady=10)
 quote_label = tk.Label(root, text="", font=("Arial", 12), fg="yellow", bg="black", wraplength=500)
 quote_label.pack(pady=10)
 
-# Start loop
 update_display()
 root.mainloop()
-
